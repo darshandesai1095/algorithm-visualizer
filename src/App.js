@@ -1,25 +1,36 @@
-import logo from './logo.svg';
+import { useEffect, useState } from 'react';
 import './App.css';
+import Element from './components/Element/Element';
+import bubbleSort from './Algorithms/bubbleSort';
 
-function App() {
+const App = () => {
+
+  const [arr, setArr] = useState([20, 10, 14, 15, 7, 2, 12, 16, 17, 5])
+  const [elements, setElements] = useState()
+  bubbleSort(arr, setArr)
+
+
+  useEffect(() => {
+     setElements(arr.map((el, i) => {
+      return (
+        <Element
+          key={i}
+          orderNo={i}
+          height={el*10}
+          active={false}
+          sorted={false}
+        />
+      )
+    }))
+  }, [arr])
+
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <div className='elements'>
+        {elements}
+      </div>
     </div>
-  );
+  )
 }
 
 export default App;
