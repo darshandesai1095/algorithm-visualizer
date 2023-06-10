@@ -4,10 +4,10 @@ const Element = ( {orderNo, height, active, sorted} ) => {
 
   return (
     <div 
-        className="element" 
+        className={`element ${active ? "active" : null}`}
         style={{
             height: `${height}px`,
-            order: `${orderNo}`
+            order: `${orderNo}`,
         }}>
     </div>
   )
