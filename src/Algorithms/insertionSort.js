@@ -19,8 +19,8 @@ const insertionSort = async (arr, updateArr, setActiveIndex, delayMilliSeconds) 
     }
 
     for (let i=0; i<len; i++) {
-        await delay(delayMilliSeconds)
-        setActiveIndex([i])        
+        setActiveIndex([i]) 
+        await delay(delayMilliSeconds)     
     }
     setActiveIndex([]) 
 
