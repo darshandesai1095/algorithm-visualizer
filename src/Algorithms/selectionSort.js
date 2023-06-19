@@ -1,4 +1,4 @@
-const delay = (time) => new Promise(resolve => setTimeout(resolve, time))
+import delay from "../functions/delay"
 
 const selectionSort = async (arr, updateArray, setActiveIndex, delayMilliSeconds) => {
     const len = arr.length
