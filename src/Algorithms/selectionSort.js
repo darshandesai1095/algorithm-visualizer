@@ -11,10 +11,14 @@ const selectionSort = async (arr, updateArray, setActiveIndex, delayMilliSeconds
             // find minimum
             if (arr[j] < arr[minIndex]) {
                 minIndex = j
+                setActiveIndex([j])
+                await delay(delayMilliSeconds)
             }
         }
         if (arr[currentIndex] > arr[minIndex]) {
             [ arr[currentIndex], arr[minIndex] ] = [ arr[minIndex], arr[currentIndex] ]
+            setActiveIndex([currentIndex, minIndex])
+            await delay(delayMilliSeconds)
         }
         setActiveIndex([currentIndex, minIndex])
         await delay(delayMilliSeconds)
