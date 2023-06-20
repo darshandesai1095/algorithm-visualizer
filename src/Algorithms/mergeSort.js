@@ -1,52 +1,70 @@
 import delay from "../functions/delay"
+import sequenceHighlight from "../functions/sequenceHighlight"
 
-// recursive implementation
-const mergeSort = async (arr, updateArr, setActiveIndex, delayMilliSeconds, startIndex = 0) => {
+const mergeSort = async (arr, updateArr, setActiveIndex, delayMilliSeconds) => {
 
-    const len = arr.length
-    if (len <= 1) return arr
+    const length = arr.length
+    let width = 1
 
-    const mid = Math.floor(len/2)
+    while (width < length) {
+        let left = 0 // start index of left array
 
-    const left = arr.slice(0, mid)
-    const right = arr.slice(mid, len)
+        while (left < length) {
+            const mid = left + width
+            const right = Math.min(left + 2 * width, length) // start index of right array
+            await merge(arr, left, mid, right, updateArr, setActiveIndex, delayMilliSeconds)
+            left += 2 * width
+        }
 
-    const left1 = await mergeSort(left, updateArr, setActiveIndex, delayMilliSeconds)
-    const right1 = await mergeSort(right, updateArr, setActiveIndex, delayMilliSeconds)
+        width *= 2
+    }
 
-    return merge(left1, right1, updateArr, setActiveIndex, delayMilliSeconds)
+    sequenceHighlight(length, setActiveIndex, delayMilliSeconds)
 
 }
 
-const merge = async (arr, left, right, updateArr, setActiveIndex, delayMilliSeconds) => {
 
-    let tempArr
+const merge = async (arr, left, mid, right, updateArr, setActiveIndex, delayMilliSeconds) => {
+    const leftArr = arr.slice(left, mid)
+    const rightArr = arr.slice(mid, right)
+    let [i, j, k] = [0, 0, left]
 
-    while (left.length > 0 && right.length > 0) {
-        await delay(delayMilliSeconds)
-        if (left[0] > right[0]) {
-            tempArr.push(right[0])
-            right.shift()
+    while (i < leftArr.length && j < rightArr.length) {
+        if (leftArr[i] <= rightArr[j]) {
+            setActiveIndex([left+i, mid+j])
+            arr[k] = leftArr[i]
+            updateArr([...arr])
+            await delay(delayMilliSeconds)            
+            i++
         } else {
-            tempArr.push(left[0])
-            left.shift()
+            setActiveIndex([left+i, mid+j])
+            arr[k] = rightArr[j]
+            updateArr([...arr])
+            await delay(delayMilliSeconds)
+            j++
         }
+
+        k++
     }
 
-    while (left.length > 0) {
+    while (i < leftArr.length) {
+        setActiveIndex([left+i, mid+j])
+        arr[k] = leftArr[i]
+        updateArr([...arr])
         await delay(delayMilliSeconds)
-        tempArr.push(left[0])
-        left.shift()
+        i++
+        k++
     }
 
-    while (right.length > 0) {
+    while (j < rightArr.length) {
+        setActiveIndex([left+i, mid+j])
+        arr[k] = rightArr[j]
+        updateArr([...arr])
         await delay(delayMilliSeconds)
-        tempArr.push(right[0])
-        right.shift()
+        j++
+        k++
     }
 
-    // updateArr(tempArr)
-    return tempArr
 }
 
 export default mergeSort
