@@ -1,0 +1,19 @@
+.navigation {
+    position: absolute;
+    left: 30px;
+    top: 30px;
+    display: block;
+    position: fixed;
+    z-index: 999;
+}
+
+.nav__item {
+    margin: 0px 0px;
+    margin-bottom: 0.4rem;
+    padding: 0px;
+    transition: 0.2s;
+}
+
+.nav__item:hover {
+    cursor: pointer;
+}
