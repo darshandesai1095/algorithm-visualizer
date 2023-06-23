@@ -1,11 +1,12 @@
 import './Element.css';
 
-const Element = ( {orderNo, height, active, sorted} ) => {
+const Element = ( {orderNo, width, height, active, sorted} ) => {
 
   return (
     <div 
         className={`element ${active ? "active" : null}`}
         style={{
+            width: `${width}vw`,
             height: `${height}px`,
             order: `${orderNo}`,
         }}>
