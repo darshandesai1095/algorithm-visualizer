@@ -32,6 +32,7 @@ const partition = async (arr, left, right, updateArray, setActiveIndex, delayMil
         }
         setActiveIndex([i+1])
         updateArray([...arr])
+        
     }
 
     await partition(arr, left, i, updateArray, setActiveIndex, delayMilliSeconds)
