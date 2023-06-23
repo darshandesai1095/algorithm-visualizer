@@ -7,8 +7,9 @@ import insertionSort from './Algorithms/insertionSort';
 import mergeSort from './Algorithms/mergeSort';
 import heapSort from './Algorithms/heapSort';
 import cocktailSort from './Algorithms/cocktailSort';
-import gravitySortInPlace from './Algorithms/gravitySort';
+import shellSort from './Algorithms/shellSort';
 import quickSort from './Algorithms/quickSort';
+import Navigation from './components/Navigation/Navigation';
 
 
 const App = () => {
@@ -19,7 +20,7 @@ const App = () => {
     [39, 12, 44, 28, 6, 22, 18, 7, 49, 48, 15, 50, 42, 14, 16, 26, 36, 1, 29, 34, 40, 25, 43, 2, 9, 38, 24, 13, 4, 46, 35, 3, 19, 10, 17, 23, 31, 8, 20, 5, 45, 30, 47, 32, 37, 11, 21, 27, 33, 41,  44, 28, 6, 22, 18, 7, 49, 48, 15, 50, 42, 14, 16, 26, 36, 1, 29, 34, 40, 25, 43, 2, 9, 38, 24, 13, 4, 46, 35]
   )
   useEffect(() => {
-    quickSort(currentArray, setCurrentArray, setActiveIndex, delay)
+    heapSort(currentArray, setCurrentArray, setActiveIndex, delay)
   }, [])
 
 
@@ -29,7 +30,8 @@ const App = () => {
         <Element
           key={index}
           orderNo={index}
-          height={el*10}
+          width={0.85}
+          height={el*12}
           active={activeIndex.includes(index) ? true : false}
           sorted={false}
         />
@@ -38,8 +40,11 @@ const App = () => {
 
   return (
     <div className="App">
-      <div className='elements'>
-        {elements}
+      <Navigation/>
+      <div className='main'>
+        <div className='visualization'>
+          {elements}
+        </div>
       </div>
     </div>
   )
