@@ -1,0 +1,21 @@
+.menu {
+    width: calc(40rem - 5rem);
+    height: 100vh;
+    background-color: #161719;
+    position: absolute;
+    top: -30px;
+    left: -30px;
+    color: white;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    transform: translateX(-55rem);
+    z-index: -999;
+    transition: 0.5s;
+}
+
+.menu.visible {
+    visibility: visible;
+    transform: translateX(0px);
+}
