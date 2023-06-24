@@ -1,13 +1,17 @@
 import delay from "../functions/delay"
 import sequenceHighlight from "../functions/sequenceHighlight"
+import generateRandomSequence from "../functions/generateRandomSequence"
 
+const bubbleSort = async (setterFunc, setActiveIndex, delayMilliSeconds, arrayLength) => {
 
-const bubbleSort = async (arr, setterFunc, setActiveIndex, delayMilliSeconds) => {
-    const length = arr.length
-    if (length <= 1) return arr
+    const arr = generateRandomSequence(arrayLength)
+    setterFunc([...arr])
+    await delay(500)
 
-        for (let i=0; i<length; i++) {
-            for (let j=0; j<length-i-1; j++) {
+    if (arrayLength <= 1) return arr
+
+        for (let i=0; i<arrayLength; i++) {
+            for (let j=0; j<arrayLength-i-1; j++) {
                 await delay(delayMilliSeconds)
                 if (arr[j] > arr[j+1]) {
                     [ arr[j], arr[j+1] ] = [ arr[j+1], arr[j] ]
@@ -18,7 +22,7 @@ const bubbleSort = async (arr, setterFunc, setActiveIndex, delayMilliSeconds) =>
             }
         }
 
-        sequenceHighlight(length, setActiveIndex, delayMilliSeconds)
+        sequenceHighlight(arrayLength, setActiveIndex, 10)
 
 }
 
