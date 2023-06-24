@@ -11,7 +11,7 @@
 }
 
 .menu-item:hover {
-    color: #FFCC0D;
+    color: #FF194D;
 }
 
 .highlight {
@@ -23,11 +23,15 @@
     z-index: -99;
     visibility: visible;
     width: 100%;
-    background-color: rgba(255, 224, 110, 0.1);
+    background-color: rgb(255, 140, 166, 0.1);
     transition: all 0.3s ease-in-out;
 }
 
 .unhighlight {
     width: 0%;
     transition: all 0.3s ease-in-out;
+}
+
+.active-algorithm {
+    color: #FF194D;
 }
