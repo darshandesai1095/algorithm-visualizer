@@ -8,5 +8,5 @@ export const store = configureStore({
     algorithm: algorithmSlice,
     toggleRerun: toggleRerunSlice,
     delay: delaySlice
-  },
+  }
 })
