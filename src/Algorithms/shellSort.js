@@ -2,7 +2,19 @@ import delay from "../functions/delay"
 import sequenceHighlight from "../functions/sequenceHighlight"
 import generateRandomSequence from "../functions/generateRandomSequence"
 
-const shellSort = async (setterFunc, setActiveIndex, delayMilliSeconds, arrayLength) => {
+const shellSort = async (setterFunc, setActiveIndex, delayMilliSeconds, arrayLength, setMetaData) => {
+
+    let iterations = 0
+    let comparisons = 0
+    let swaps = 0
+    let shifts = 0
+
+    setMetaData({
+        iterations: iterations,
+        comparisons: comparisons,
+        swaps: swaps,
+        shifts: shifts
+    })
 
     const arr = generateRandomSequence(arrayLength)
     setterFunc([...arr])
@@ -13,13 +25,30 @@ const shellSort = async (setterFunc, setActiveIndex, delayMilliSeconds, arrayLen
     let interval = Math.floor(length/2)
 
     while (interval >= 1) {
+
         for (let i=0; i+interval<length; i++) {
+
             await delay(delayMilliSeconds)
             setActiveIndex([i, i+interval])
             if (arr[i] > arr[i+interval]) {
                 [ arr[i], arr[i+interval] ] = [ arr[i+interval], arr[i] ]    
-                setterFunc([...arr])        
+                setterFunc([...arr])   
+                
+                setMetaData({
+                    iterations: iterations,
+                    comparisons: comparisons,
+                    swaps: swaps+=1,
+                    shifts: shifts
+                })
+
             }
+
+            setMetaData({
+                iterations: iterations+=1,
+                comparisons: comparisons+=1,
+                swaps: swaps,
+                shifts: shifts
+            })
 
             let j = i
             while (j - interval >= 0 && arr[j - interval] > arr[j]) {
@@ -28,6 +57,14 @@ const shellSort = async (setterFunc, setActiveIndex, delayMilliSeconds, arrayLen
                 await delay(delayMilliSeconds)
                 setterFunc([...arr])
                 j -= interval
+
+                setMetaData({
+                    iterations: iterations+=1,
+                    comparisons: comparisons,
+                    swaps: swaps+=1,
+                    shifts: shifts
+                })
+
             }
         }
         

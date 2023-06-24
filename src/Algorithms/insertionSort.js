@@ -2,7 +2,12 @@ import delay from "../functions/delay"
 import sequenceHighlight from "../functions/sequenceHighlight"
 import generateRandomSequence from "../functions/generateRandomSequence"
 
-const insertionSort = async (updateArr, setActiveIndex, delayMilliSeconds, arrayLength) => {
+const insertionSort = async (updateArr, setActiveIndex, delayMilliSeconds, arrayLength, setMetaData) => {
+
+    let iterations = 0
+    let comparisons = 0
+    let swaps = 0
+    let shifts = 0
 
     const arr = generateRandomSequence(arrayLength)
     updateArr([...arr])
@@ -20,9 +25,21 @@ const insertionSort = async (updateArr, setActiveIndex, delayMilliSeconds, array
             await delay(delayMilliSeconds)
             arr[j+1] = arr[j]
             setActiveIndex([i,j])
+            setMetaData({
+                iterations: iterations+=1,
+                comparisons: comparisons+=1,
+                swaps: swaps,
+                shifts: shifts+=1
+            })
             j -=1
         }
         arr[j+1] = key
+        setMetaData({
+            iterations: iterations,
+            comparisons: comparisons,
+            swaps: swaps,
+            shifts: shifts+=1
+        })
         updateArr([...arr])
     }
 

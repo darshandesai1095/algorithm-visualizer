@@ -2,7 +2,15 @@ import delay from "../functions/delay"
 import generateRandomSequence from "../functions/generateRandomSequence"
 import sequenceHighlight from "../functions/sequenceHighlight"
 
-const heapSort = async (updateArr, setActiveIndex, delayMilliSeconds, arrayLength) => {
+const heapSort = async (updateArr, setActiveIndex, delayMilliSeconds, arrayLength, setMetaData, metaData) => {
+
+    setMetaData({
+        iterations: metaData.iterations,
+        comparisons: metaData.comparisons,
+        swaps: metaData.swaps,
+        shifts: metaData.shifts
+    })
+
 
     const arr = generateRandomSequence(arrayLength)
     updateArr([...arr])
@@ -13,11 +21,20 @@ const heapSort = async (updateArr, setActiveIndex, delayMilliSeconds, arrayLengt
 
     // Build max heap
     for (let i = Math.floor(length / 2) - 1; i >= 0; i--) {
-        await heapify(arr, length, i, updateArr, setActiveIndex, delayMilliSeconds)
+
+        setMetaData({
+            iterations: metaData.iterations+=0,
+            comparisons: metaData.comparisons,
+            swaps: metaData.swaps,
+            shifts: metaData.shifts
+        })
+
+        await heapify(arr, length, i, updateArr, setActiveIndex, delayMilliSeconds, setMetaData, metaData)
     }
 
     // Heap sort
     for (let i = length - 1; i > 0; i--) {
+
         // Swap root with the last element
         [arr[0], arr[i]] = [arr[i], arr[0]]
         setActiveIndex([0, i])
@@ -29,6 +46,7 @@ const heapSort = async (updateArr, setActiveIndex, delayMilliSeconds, arrayLengt
         let isHeapified = false
 
         while (!isHeapified) {
+
             let largest = currentIndex;
             const leftChildIndex = 2 * currentIndex + 1
             const rightChildIndex = 2 * currentIndex + 2
@@ -48,21 +66,56 @@ const heapSort = async (updateArr, setActiveIndex, delayMilliSeconds, arrayLengt
                 await delay(delayMilliSeconds)
 
                 currentIndex = largest
+
+                setMetaData({
+                    iterations: metaData.iterations,
+                    comparisons: metaData.comparisons,
+                    swaps: metaData.swaps+=1,
+                    shifts: metaData.shifts
+                })
+
+
             } else {
                 isHeapified = true
             }
+            
+            setMetaData({
+                iterations: metaData.iterations+=1,
+                comparisons: metaData.comparisons+=2,
+                swaps: metaData.swaps,
+                shifts: metaData.shifts
+            })
+
+            updateArr([...arr])
+            await delay(delayMilliSeconds)
+            
         }
+
+        setMetaData({
+            iterations: metaData.iterations+=1,
+            comparisons: metaData.comparisons,
+            swaps: metaData.swaps,
+            shifts: metaData.shifts
+        })
     }
 
     sequenceHighlight(length, setActiveIndex, 10)
 
 }
   
-const heapify = async (arr, heapSize, i, updateArr, setActiveIndex, delayMilliSeconds) => {
+const heapify = async (arr, heapSize, i, updateArr, setActiveIndex, delayMilliSeconds, setMetaData, metaData) => {
     let currentIndex = i
     let isHeapified = false
 
     while (!isHeapified) {
+
+        setMetaData({
+            iterations: metaData.iterations+=1,
+            comparisons: metaData.comparisons+=2,
+            swaps: metaData.swaps,
+            shifts: metaData.shifts
+        })
+
         let largest = currentIndex
         const leftChildIndex = 2 * currentIndex + 1
         const rightChildIndex = 2 * currentIndex + 2
@@ -80,7 +133,17 @@ const heapify = async (arr, heapSize, i, updateArr, setActiveIndex, delayMilliSe
             setActiveIndex([currentIndex, largest])
             updateArr([...arr])
             await delay(delayMilliSeconds)
+            
             currentIndex = largest
+
+            setMetaData({
+                iterations: metaData.iterations,
+                comparisons: metaData.comparisons,
+                swaps: metaData.swaps+=1,
+                shifts: metaData.shifts
+            })
+
+
         } else {
             isHeapified = true
         }
