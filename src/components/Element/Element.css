@@ -1,9 +1,9 @@
 .element {
     background-color: #FF194D;
-    margin: 1.5px;
+    margin: 1px;
     border-radius: 1px;
 }
 
 .active {
-    background-color: #FFCC0D;
+    background-color: #23B99A;
 }
