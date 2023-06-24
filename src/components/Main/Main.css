@@ -1,0 +1,9 @@
+.main {
+    border: 15px solid #161719;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: 100vw;
+    height: 100vh;
+}
