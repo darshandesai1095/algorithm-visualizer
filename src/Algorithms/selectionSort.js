@@ -1,6 +1,13 @@
 import delay from "../functions/delay"
+import generateRandomSequence from "../functions/generateRandomSequence"
+import sequenceHighlight from "../functions/sequenceHighlight"
 
-const selectionSort = async (arr, updateArray, setActiveIndex, delayMilliSeconds) => {
+const selectionSort = async (updateArray, setActiveIndex, delayMilliSeconds, arrayLength) => {
+
+    const arr = generateRandomSequence(arrayLength)
+    updateArray([...arr])
+    await delay(500)
+
     const len = arr.length
     if (len <= 1) return arr
 
@@ -30,7 +37,9 @@ const selectionSort = async (arr, updateArray, setActiveIndex, delayMilliSeconds
         setActiveIndex([i])     
         await delay(delayMilliSeconds)   
     }
-    setActiveIndex([]) 
+    setActiveIndex([])
+
+    sequenceHighlight(len, setActiveIndex, 10)
 
 }
 

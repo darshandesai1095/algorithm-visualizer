@@ -1,7 +1,13 @@
 import delay from "../functions/delay"
 import sequenceHighlight from "../functions/sequenceHighlight"
+import generateRandomSequence from "../functions/generateRandomSequence"
 
-const quickSort = async (arr, updateArray, setActiveIndex, delayMilliSeconds) => {
+const quickSort = async (updateArray, setActiveIndex, delayMilliSeconds, arrayLength) => {
+
+    const arr = generateRandomSequence(arrayLength)
+    updateArray([...arr])
+    await delay(500)
+
     const length = arr.length
     if (length <= 1) return arr
 
@@ -9,7 +15,7 @@ const quickSort = async (arr, updateArray, setActiveIndex, delayMilliSeconds) =>
     const right = length-1
     await partition(arr, left, right, updateArray, setActiveIndex, delayMilliSeconds)
 
-    sequenceHighlight(length, setActiveIndex, delayMilliSeconds)
+    sequenceHighlight(length, setActiveIndex, 10)
 
 }
 

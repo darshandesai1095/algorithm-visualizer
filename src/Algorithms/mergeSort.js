@@ -1,7 +1,12 @@
 import delay from "../functions/delay"
 import sequenceHighlight from "../functions/sequenceHighlight"
+import generateRandomSequence from "../functions/generateRandomSequence"
 
-const mergeSort = async (arr, updateArr, setActiveIndex, delayMilliSeconds) => {
+const mergeSort = async (updateArr, setActiveIndex, delayMilliSeconds, arrayLength) => {
+
+    const arr = generateRandomSequence(arrayLength)
+    updateArr([...arr])
+    await delay(500)
 
     const length = arr.length
     let width = 1
@@ -19,7 +24,7 @@ const mergeSort = async (arr, updateArr, setActiveIndex, delayMilliSeconds) => {
         width *= 2
     }
 
-    sequenceHighlight(length, setActiveIndex, delayMilliSeconds)
+    sequenceHighlight(length, setActiveIndex, 10)
 
 }
 
@@ -68,3 +73,4 @@ const merge = async (arr, left, mid, right, updateArr, setActiveIndex, delayMill
 }
 
 export default mergeSort
+

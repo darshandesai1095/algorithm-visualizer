@@ -1,8 +1,14 @@
 import delay from "../functions/delay"
+import generateRandomSequence from "../functions/generateRandomSequence"
 import sequenceHighlight from "../functions/sequenceHighlight"
 
 
-const cocktailSort = async (arr, setterFunc, setActiveIndex, delayMilliSeconds) => {
+const cocktailSort = async (setterFunc, setActiveIndex, delayMilliSeconds, arrayLength) => {
+    
+    const arr = generateRandomSequence(arrayLength)
+    setterFunc([...arr])
+    await delay(500)
+    
     const length = arr.length
     if (length <= 1) return arr
 
@@ -27,7 +33,7 @@ const cocktailSort = async (arr, setterFunc, setActiveIndex, delayMilliSeconds) 
             }
         }
 
-        sequenceHighlight(length, setActiveIndex, delayMilliSeconds)
+        sequenceHighlight(length, setActiveIndex, 10)
 
 }
 

@@ -1,7 +1,12 @@
 import delay from "../functions/delay"
 import sequenceHighlight from "../functions/sequenceHighlight"
+import generateRandomSequence from "../functions/generateRandomSequence"
 
-const shellSort = async (arr, setterFunc, setActiveIndex, delayMilliSeconds) => {
+const shellSort = async (setterFunc, setActiveIndex, delayMilliSeconds, arrayLength) => {
+
+    const arr = generateRandomSequence(arrayLength)
+    setterFunc([...arr])
+    await delay(500)
 
     const length = arr.length
 
@@ -29,7 +34,7 @@ const shellSort = async (arr, setterFunc, setActiveIndex, delayMilliSeconds) => 
         interval = Math.floor(interval/2)
     }
 
-    sequenceHighlight(length, setActiveIndex, delayMilliSeconds/2)
+    sequenceHighlight(length, setActiveIndex, 10)
 }
 
 export default shellSort
