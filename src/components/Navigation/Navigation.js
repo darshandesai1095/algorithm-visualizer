@@ -1,22 +1,28 @@
 import './Navigation.css';
-import KeyboardArrowUpIcon from '@mui/icons-material/KeyboardArrowUp';
 import AppsIcon from '@mui/icons-material/Apps';
-import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
 import Menu from '../Menu/Menu';
-import { useState } from 'react';
 import DisabledByDefaultIcon from '@mui/icons-material/DisabledByDefault';
+import { useEffect, useState } from 'react';
 import RefreshIcon from '@mui/icons-material/Refresh';
-import CropSquareSharpIcon from '@mui/icons-material/CropSquareSharp';
+import { useDispatch, useSelector } from 'react-redux';
+import { toggleRerun } from '../../features/toggleRerunSlice';
+import MenuIcon from '@mui/icons-material/Menu';
+import RemoveIcon from '@mui/icons-material/Remove';
+import PauseSharpIcon from '@mui/icons-material/PauseSharp';
+import PlayArrowSharpIcon from '@mui/icons-material/PlayArrowSharp';
+
 
 const Navigation = () => {
 
-    const style = {
+    const dispatch = useDispatch()
+    const delay = useSelector(state => state.delay.value)
+
+    const [style, setStyle] = useState({
         transform: "scale(1.1))",
         color: "#FCF7F8",
-    }
+    })
 
     const [menuVisible, setMenuVisible] = useState(false)
-
 
     return (
         <div className="navigation">
@@ -33,25 +39,27 @@ const Navigation = () => {
                             style={{...style, color: "#FF194D"}}
                         />
                         :
-                        <AppsIcon 
-                            style={style}
+                        <AppsIcon
+                            style={{...style, transform: "rotate(0deg)"}}
                         />
                     }
                 </div>
                 
-                <div className='nav__item'>
+                <div className='nav__item' onClick={() => dispatch(toggleRerun())}>
                     <RefreshIcon
-                        style={style}
+                        style={{...style, transform: ""}}
                     />
                 </div>
 
                 <div className='nav__item'>
-                    <CropSquareSharpIcon style={style} />
+                    <PauseSharpIcon
+                        style={style}
+                    />
                 </div>
-                
+
             </div>
 
-            <Menu menuVisible={menuVisible}/>
+            <Menu menuVisible={menuVisible} setMenuVisible={setMenuVisible}/>
 
         </div>
     )
