@@ -11,9 +11,14 @@
     margin: 0px 0px;
     margin-bottom: 0.4rem;
     padding: 0px;
-    transition: 0.2s;
 }
 
-.nav__item:hover {
+svg {
+    color: #FCF7F8;
+    transition: 0.2s;
     cursor: pointer;
+}
+
+svg:hover {
+    fill: #FF194D;
 }
