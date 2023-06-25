@@ -4,7 +4,7 @@ import Menu from '../Menu/Menu';
 import DisabledByDefaultIcon from '@mui/icons-material/DisabledByDefault';
 import { useState } from 'react';
 import RefreshIcon from '@mui/icons-material/Refresh';
-import { useDispatch, useSelector } from 'react-redux';
+import { useDispatch } from 'react-redux';
 import { toggleRerun } from '../../features/toggleRerunSlice';
 import CheckBoxOutlineBlankSharpIcon from '@mui/icons-material/CheckBoxOutlineBlankSharp';
 
@@ -15,13 +15,13 @@ const Navigation = () => {
 
     const [style, setStyle] = useState({
         transform: "scale(1.1))",
-        color: "#FCF7F8",
     })
 
     const [menuVisible, setMenuVisible] = useState(false)
 
     const handleRerun = () => {
         dispatch(toggleRerun())
+        
     }
 
     return (
@@ -40,14 +40,14 @@ const Navigation = () => {
                         />
                         :
                         <AppsIcon
-                            style={{...style, transform: "rotate(0deg)"}}
+                            style={style}
                         />
                     }
                 </div>
-                
+
                 <div className='nav__item' onClick={handleRerun}>
                     <RefreshIcon
-                        style={{...style, transform: ""}}
+                        style={{style}}
                     />
                 </div>
 
