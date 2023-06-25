@@ -2,20 +2,16 @@ import './Navigation.css';
 import AppsIcon from '@mui/icons-material/Apps';
 import Menu from '../Menu/Menu';
 import DisabledByDefaultIcon from '@mui/icons-material/DisabledByDefault';
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import RefreshIcon from '@mui/icons-material/Refresh';
 import { useDispatch, useSelector } from 'react-redux';
 import { toggleRerun } from '../../features/toggleRerunSlice';
-import MenuIcon from '@mui/icons-material/Menu';
-import RemoveIcon from '@mui/icons-material/Remove';
-import PauseSharpIcon from '@mui/icons-material/PauseSharp';
-import PlayArrowSharpIcon from '@mui/icons-material/PlayArrowSharp';
+import CheckBoxOutlineBlankSharpIcon from '@mui/icons-material/CheckBoxOutlineBlankSharp';
 
 
 const Navigation = () => {
 
     const dispatch = useDispatch()
-    const delay = useSelector(state => state.delay.value)
 
     const [style, setStyle] = useState({
         transform: "scale(1.1))",
@@ -23,6 +19,10 @@ const Navigation = () => {
     })
 
     const [menuVisible, setMenuVisible] = useState(false)
+
+    const handleRerun = () => {
+        dispatch(toggleRerun())
+    }
 
     return (
         <div className="navigation">
@@ -45,15 +45,15 @@ const Navigation = () => {
                     }
                 </div>
                 
-                <div className='nav__item' onClick={() => dispatch(toggleRerun())}>
+                <div className='nav__item' onClick={handleRerun}>
                     <RefreshIcon
                         style={{...style, transform: ""}}
                     />
                 </div>
 
-                <div className='nav__item'>
-                    <PauseSharpIcon
-                        style={style}
+                <div className='nav__item' onClick={() => window.open("https://65kyyf-3000.csb.app/", "_blank")}>
+                    <CheckBoxOutlineBlankSharpIcon
+                        style={{...style, transform: "scale(0.9)"}}
                     />
                 </div>
 
