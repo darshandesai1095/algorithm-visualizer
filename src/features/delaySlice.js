@@ -1,7 +1,7 @@
 import { createSlice } from '@reduxjs/toolkit'
 
 const initialState = {
-    value: 5
+    value: 10
 }
 
 export const delaySlice = createSlice({
