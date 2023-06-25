@@ -2,7 +2,13 @@ import delay from "../functions/delay"
 import sequenceHighlight from "../functions/sequenceHighlight"
 import generateRandomSequence from "../functions/generateRandomSequence"
 
-const mergeSort = async (updateArr, setActiveIndex, delayMilliSeconds, arrayLength, setMetaData, metaData) => {
+const mergeSort = async (updateArr, setActiveIndex, delayMilliSeconds, arrayLength, 
+    setMetaData, metaData, cancellationCheckFn) => {
+
+    if (cancellationCheckFn && cancellationCheckFn()) {
+        setActiveIndex([])
+        return
+    }
 
     setMetaData({
         iterations: metaData.iterations,
@@ -20,6 +26,11 @@ const mergeSort = async (updateArr, setActiveIndex, delayMilliSeconds, arrayLeng
 
     while (width < length) {
 
+        if (cancellationCheckFn && cancellationCheckFn()) {
+            setActiveIndex([])
+            return
+        }
+
         setMetaData({
             iterations: metaData.iterations+=1,
             comparisons: metaData.comparisons,
@@ -31,6 +42,11 @@ const mergeSort = async (updateArr, setActiveIndex, delayMilliSeconds, arrayLeng
 
         while (left < length) {
 
+            if (cancellationCheckFn && cancellationCheckFn()) {
+                setActiveIndex([])
+                return
+            }
+
             setMetaData({
                 iterations: metaData.iterations+=1,
                 comparisons: metaData.comparisons,
@@ -40,7 +56,8 @@ const mergeSort = async (updateArr, setActiveIndex, delayMilliSeconds, arrayLeng
 
             const mid = left + width
             const right = Math.min(left + 2 * width, length) // start index of right array
-            await merge(arr, left, mid, right, updateArr, setActiveIndex, delayMilliSeconds, setMetaData, metaData)
+            await merge(arr, left, mid, right, updateArr, setActiveIndex, 
+                delayMilliSeconds, setMetaData, metaData, cancellationCheckFn)
             left += 2 * width
         }
 
@@ -52,12 +69,24 @@ const mergeSort = async (updateArr, setActiveIndex, delayMilliSeconds, arrayLeng
 }
 
 
-const merge = async (arr, left, mid, right, updateArr, setActiveIndex, delayMilliSeconds, setMetaData, metaData) => {
+const merge = async (arr, left, mid, right, updateArr, setActiveIndex, 
+    delayMilliSeconds, setMetaData, metaData, cancellationCheckFn) => {
+
+    if (cancellationCheckFn && cancellationCheckFn()) {
+        setActiveIndex([])
+        return
+    }
+
     const leftArr = arr.slice(left, mid)
     const rightArr = arr.slice(mid, right)
     let [i, j, k] = [0, 0, left]
 
     while (i < leftArr.length && j < rightArr.length) {
+
+        if (cancellationCheckFn && cancellationCheckFn()) {
+            setActiveIndex([])
+            return
+        }
 
         setMetaData({
             iterations: metaData.iterations+=1,
@@ -92,6 +121,11 @@ const merge = async (arr, left, mid, right, updateArr, setActiveIndex, delayMill
 
     while (i < leftArr.length) {
 
+        if (cancellationCheckFn && cancellationCheckFn()) {
+            setActiveIndex([])
+            return
+        }
+
         setMetaData({
             iterations: metaData.iterations+=1,
             comparisons: metaData.comparisons,
@@ -108,6 +142,11 @@ const merge = async (arr, left, mid, right, updateArr, setActiveIndex, delayMill
     }
 
     while (j < rightArr.length) {
+
+        if (cancellationCheckFn && cancellationCheckFn()) {
+            setActiveIndex([])
+            return
+        }
 
         setMetaData({
             iterations: metaData.iterations+=1,

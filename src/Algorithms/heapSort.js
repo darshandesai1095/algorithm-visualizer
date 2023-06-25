@@ -2,7 +2,13 @@ import delay from "../functions/delay"
 import generateRandomSequence from "../functions/generateRandomSequence"
 import sequenceHighlight from "../functions/sequenceHighlight"
 
-const heapSort = async (updateArr, setActiveIndex, delayMilliSeconds, arrayLength, setMetaData, metaData) => {
+const heapSort = async (updateArr, setActiveIndex, delayMilliSeconds, 
+    arrayLength, setMetaData, metaData, cancellationCheckFn) => {
+    
+    if (cancellationCheckFn && cancellationCheckFn()) {
+        setActiveIndex([])
+        return
+    }
 
     setMetaData({
         iterations: metaData.iterations,
@@ -21,6 +27,10 @@ const heapSort = async (updateArr, setActiveIndex, delayMilliSeconds, arrayLengt
 
     // Build max heap
     for (let i = Math.floor(length / 2) - 1; i >= 0; i--) {
+        if (cancellationCheckFn && cancellationCheckFn()) {
+            setActiveIndex([])
+            return
+        }
 
         setMetaData({
             iterations: metaData.iterations+=0,
@@ -29,11 +39,17 @@ const heapSort = async (updateArr, setActiveIndex, delayMilliSeconds, arrayLengt
             shifts: metaData.shifts
         })
 
-        await heapify(arr, length, i, updateArr, setActiveIndex, delayMilliSeconds, setMetaData, metaData)
+        await heapify(arr, length, i, updateArr, setActiveIndex, delayMilliSeconds, 
+            setMetaData, metaData, cancellationCheckFn)
     }
 
     // Heap sort
     for (let i = length - 1; i > 0; i--) {
+
+        if (cancellationCheckFn && cancellationCheckFn()) {
+            setActiveIndex([])
+            return
+        }
 
         // Swap root with the last element
         [arr[0], arr[i]] = [arr[i], arr[0]]
@@ -46,6 +62,11 @@ const heapSort = async (updateArr, setActiveIndex, delayMilliSeconds, arrayLengt
         let isHeapified = false
 
         while (!isHeapified) {
+
+            if (cancellationCheckFn && cancellationCheckFn()) {
+                setActiveIndex([])
+                return
+            }
 
             let largest = currentIndex;
             const leftChildIndex = 2 * currentIndex + 1
@@ -103,11 +124,17 @@ const heapSort = async (updateArr, setActiveIndex, delayMilliSeconds, arrayLengt
 
 }
   
-const heapify = async (arr, heapSize, i, updateArr, setActiveIndex, delayMilliSeconds, setMetaData, metaData) => {
+const heapify = async (arr, heapSize, i, updateArr, setActiveIndex, 
+    delayMilliSeconds, setMetaData, metaData, cancellationCheckFn) => {
     let currentIndex = i
     let isHeapified = false
 
     while (!isHeapified) {
+
+        if (cancellationCheckFn && cancellationCheckFn()) {
+            setActiveIndex([])
+            return
+        }
 
         setMetaData({
             iterations: metaData.iterations+=1,

@@ -2,7 +2,13 @@ import delay from "../functions/delay"
 import sequenceHighlight from "../functions/sequenceHighlight"
 import generateRandomSequence from "../functions/generateRandomSequence"
 
-const quickSort = async (updateArray, setActiveIndex, delayMilliSeconds, arrayLength, setMetaData, metaData) => {
+const quickSort = async (updateArray, setActiveIndex, delayMilliSeconds, 
+    arrayLength, setMetaData, metaData, cancellationCheckFn) => {
+
+    if (cancellationCheckFn && cancellationCheckFn()) {
+        setActiveIndex([])
+        return
+    }
 
     setMetaData({
         iterations: metaData.iterations,
@@ -20,7 +26,13 @@ const quickSort = async (updateArray, setActiveIndex, delayMilliSeconds, arrayLe
 
     const left = 0
     const right = length-1
-    await partition(arr, left, right, updateArray, setActiveIndex, delayMilliSeconds, setMetaData, metaData)
+    await partition(arr, left, right, updateArray, setActiveIndex, 
+        delayMilliSeconds, setMetaData, metaData, cancellationCheckFn)
+
+    if (cancellationCheckFn && cancellationCheckFn()) {
+        setActiveIndex([])
+        return
+    }
 
     sequenceHighlight(length, setActiveIndex, 10)
 
@@ -28,13 +40,24 @@ const quickSort = async (updateArray, setActiveIndex, delayMilliSeconds, arrayLe
 
 export default quickSort
 
-const partition = async (arr, left, right, updateArray, setActiveIndex, delayMilliSeconds, setMetaData, metaData) => {
+const partition = async (arr, left, right, updateArray, setActiveIndex, 
+    delayMilliSeconds, setMetaData, metaData, cancellationCheckFn) => {
+
+    if (cancellationCheckFn && cancellationCheckFn()) {
+        setActiveIndex([])
+        return
+    }
 
     if (left >= right) return
     const pivot = arr[right]
     setActiveIndex([right])
     let i = left - 1
     for (let j=left; j<right; j++) {
+
+        if (cancellationCheckFn && cancellationCheckFn()) {
+            setActiveIndex([])
+            return
+        }
 
         setActiveIndex([right, i, j])
         await delay(delayMilliSeconds)
@@ -72,6 +95,6 @@ const partition = async (arr, left, right, updateArray, setActiveIndex, delayMil
         
     }
 
-    await partition(arr, left, i, updateArray, setActiveIndex, delayMilliSeconds, setMetaData, metaData)
-    await partition(arr, i+2, right, updateArray, setActiveIndex, delayMilliSeconds, setMetaData, metaData)
+    await partition(arr, left, i, updateArray, setActiveIndex, delayMilliSeconds, setMetaData, metaData, cancellationCheckFn)
+    await partition(arr, i+2, right, updateArray, setActiveIndex, delayMilliSeconds, setMetaData, metaData, cancellationCheckFn)
 }

@@ -2,7 +2,13 @@ import delay from "../functions/delay"
 import generateRandomSequence from "../functions/generateRandomSequence"
 import sequenceHighlight from "../functions/sequenceHighlight"
 
-const selectionSort = async (updateArray, setActiveIndex, delayMilliSeconds, arrayLength, setMetaData) => {
+const selectionSort = async (updateArray, setActiveIndex, delayMilliSeconds, 
+    arrayLength, setMetaData, metaData, cancellationCheckFn) => {
+
+    if (cancellationCheckFn && cancellationCheckFn()) {
+        setActiveIndex([])
+        return
+    }
 
     let iterations = 0
     let comparisons = 0
@@ -17,6 +23,12 @@ const selectionSort = async (updateArray, setActiveIndex, delayMilliSeconds, arr
     if (len <= 1) return arr
 
     for (let i=0; i<len-1; i++) {
+
+        if (cancellationCheckFn && cancellationCheckFn()) {
+            setActiveIndex([])
+            return
+        }
+
         setMetaData({
             iterations: iterations+=1,
             comparisons: comparisons+=1,
@@ -26,6 +38,12 @@ const selectionSort = async (updateArray, setActiveIndex, delayMilliSeconds, arr
         let currentIndex = i
         let minIndex = i+1
         for (let j=i+1; j<len; j++) {
+
+            if (cancellationCheckFn && cancellationCheckFn()) {
+                setActiveIndex([])
+                return
+            }
+            
             setMetaData({
                 iterations: iterations+=1,
                 comparisons: comparisons+=1,
@@ -35,7 +53,7 @@ const selectionSort = async (updateArray, setActiveIndex, delayMilliSeconds, arr
             // find minimum
             if (arr[j] < arr[minIndex]) {
                 minIndex = j
-                setActiveIndex([j])
+                setActiveIndex([i,j])
                 await delay(delayMilliSeconds)
             }
         }
@@ -55,12 +73,6 @@ const selectionSort = async (updateArray, setActiveIndex, delayMilliSeconds, arr
         // pass in new array ∵ react compares by reference
         updateArray([...arr])
     }
-
-    for (let i=0; i<len; i++) {
-        setActiveIndex([i])     
-        await delay(delayMilliSeconds)   
-    }
-    setActiveIndex([])
 
     sequenceHighlight(len, setActiveIndex, 10)
 

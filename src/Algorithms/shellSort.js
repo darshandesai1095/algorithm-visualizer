@@ -2,7 +2,13 @@ import delay from "../functions/delay"
 import sequenceHighlight from "../functions/sequenceHighlight"
 import generateRandomSequence from "../functions/generateRandomSequence"
 
-const shellSort = async (setterFunc, setActiveIndex, delayMilliSeconds, arrayLength, setMetaData) => {
+const shellSort = async (setterFunc, setActiveIndex, delayMilliSeconds, 
+    arrayLength, setMetaData, metaData, cancellationCheckFn) => {
+
+    if (cancellationCheckFn && cancellationCheckFn()) {
+        setActiveIndex([])
+        return
+    }
 
     let iterations = 0
     let comparisons = 0
@@ -26,7 +32,17 @@ const shellSort = async (setterFunc, setActiveIndex, delayMilliSeconds, arrayLen
 
     while (interval >= 1) {
 
+        if (cancellationCheckFn && cancellationCheckFn()) {
+            setActiveIndex([])
+            return
+        }
+
         for (let i=0; i+interval<length; i++) {
+
+            if (cancellationCheckFn && cancellationCheckFn()) {
+                setActiveIndex([])
+                return
+            }
 
             await delay(delayMilliSeconds)
             setActiveIndex([i, i+interval])
@@ -52,6 +68,12 @@ const shellSort = async (setterFunc, setActiveIndex, delayMilliSeconds, arrayLen
 
             let j = i
             while (j - interval >= 0 && arr[j - interval] > arr[j]) {
+
+                if (cancellationCheckFn && cancellationCheckFn()) {
+                    setActiveIndex([])
+                    return
+                }
+
                 [ arr[j], arr[j-interval] ] = [ arr[j-interval], arr[j]] 
                 setActiveIndex([j, j-interval])
                 await delay(delayMilliSeconds)

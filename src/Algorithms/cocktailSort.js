@@ -3,7 +3,13 @@ import generateRandomSequence from "../functions/generateRandomSequence"
 import sequenceHighlight from "../functions/sequenceHighlight"
 
 
-const cocktailSort = async (setterFunc, setActiveIndex, delayMilliSeconds, arrayLength, setMetaData) => {
+const cocktailSort = async (setterFunc, setActiveIndex, delayMilliSeconds, 
+    arrayLength, setMetaData, metaData, cancellationCheckFn) => {
+
+    if (cancellationCheckFn && cancellationCheckFn()) {
+        setActiveIndex([])
+        return
+    }
 
     let iterations = 0
     let comparisons = 0
@@ -25,7 +31,15 @@ const cocktailSort = async (setterFunc, setActiveIndex, delayMilliSeconds, array
     if (length <= 1) return arr
 
         for (let i=0; i<length/2; i++) {
+            if (cancellationCheckFn && cancellationCheckFn()) {
+                setActiveIndex([])
+                return
+            }
             for (let j=i; j<length-i-1; j++) {
+                if (cancellationCheckFn && cancellationCheckFn()) {
+                    setActiveIndex([])
+                    return
+                }
                 await delay(delayMilliSeconds)
                 setMetaData({
                     iterations: iterations+=1,
@@ -47,6 +61,10 @@ const cocktailSort = async (setterFunc, setActiveIndex, delayMilliSeconds, array
                 setterFunc([...arr])
             }
             for (let k=length-i-1; k>i; k--) {
+                if (cancellationCheckFn && cancellationCheckFn()) {
+                    setActiveIndex([])
+                    return
+                }
                 setMetaData({
                     iterations: iterations+=1,
                     comparisons: comparisons+=1,

@@ -2,7 +2,13 @@ import delay from "../functions/delay"
 import sequenceHighlight from "../functions/sequenceHighlight"
 import generateRandomSequence from "../functions/generateRandomSequence"
 
-const bubbleSort = async (setterFunc, setActiveIndex, delayMilliSeconds, arrayLength, setMetaData) => {
+const bubbleSort = async (setterFunc, setActiveIndex, delayMilliSeconds, 
+    arrayLength, setMetaData, metData, cancellationCheckFn) => {
+
+    if (cancellationCheckFn && cancellationCheckFn()) {
+        setActiveIndex([])
+        return
+    }
 
     let iterations = 0
     let comparisons = 0
@@ -23,8 +29,17 @@ const bubbleSort = async (setterFunc, setActiveIndex, delayMilliSeconds, arrayLe
     if (arrayLength <= 1) return arr
 
         for (let i=0; i<arrayLength; i++) {
+            if (cancellationCheckFn && cancellationCheckFn()) {
+                setActiveIndex([])
+                return
+            }
             for (let j=0; j<arrayLength-i-1; j++) {
                 await delay(delayMilliSeconds)
+
+                if (cancellationCheckFn && cancellationCheckFn()) {
+                    setActiveIndex([])
+                    return
+                }
 
                 if (arr[j] > arr[j+1]) {
                     [ arr[j], arr[j+1] ] = [ arr[j+1], arr[j] ]
