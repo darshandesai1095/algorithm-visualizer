@@ -4,4 +4,9 @@
     justify-content: center;
     align-items: flex-end;
 }
-  
+
+@media (max-width: 800px) {
+    .visualization {
+        transform: rotate(90deg) scaleY(-0.6);
+    }
+}

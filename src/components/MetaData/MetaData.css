@@ -4,12 +4,12 @@
     color: #FCF7F8;
     align-self: flex-start;
     position: absolute;
-    top: 30px;
+    top: 26px;
     left: 100px
 }
 
 .meta-data > p {
-    margin: 0 10px;
+    margin: 5px 10px;
     font-size: 0.9rem;
     letter-spacing: 0.5px;
     user-select: none;
@@ -26,4 +26,14 @@
 
 .change-delay:hover {
     color: #FF194D;
+}
+
+@media (max-width: 900px) {
+    .meta-data {
+        flex-direction: column;
+    }
+}
+
+.meta-data > p {
+    font-size: 0.75rem;
 }

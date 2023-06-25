@@ -35,3 +35,17 @@
 .active-algorithm {
     color: #FF194D;
 }
+
+@media (max-width: 600px) {
+    .menu-item  {
+        font-size: 1.5rem;
+        margin: 0.3rem 0;
+    }
+}
+
+@media (max-height: 500px) {
+    .menu-item  {
+        font-size: 0.8rem;
+        margin: 0.3rem 0;
+    }
+}
