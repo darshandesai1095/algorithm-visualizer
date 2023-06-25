@@ -5,7 +5,7 @@ import { useSelector } from 'react-redux';
 import mapAlgorithm from '../../functions/mapAlgorithm';
 
 
-const Visualization = () => {
+const Visualization = (props) => {
 
     const sortingAlgorithm = useSelector(state => state.algorithm.value)
     const toggleRerun = useSelector(state => state.toggleRerun.value)
@@ -15,9 +15,16 @@ const Visualization = () => {
     const [activeIndex, setActiveIndex] = useState([])
     const [currentArray, setCurrentArray] = useState([])
 
+
     useEffect(() => {
         let sort = mapAlgorithm(sortingAlgorithm)
-        sort(setCurrentArray, setActiveIndex, delay, arrayLength)
+        sort(setCurrentArray, setActiveIndex, delay, arrayLength, props.setMetaData, {
+            iterations: 0,
+            comparisons: 0,
+            swaps: 0,
+            shifts: 0
+        })
+
     }, [sortingAlgorithm, toggleRerun])
 
     
