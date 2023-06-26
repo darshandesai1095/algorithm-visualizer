@@ -10,7 +10,7 @@
 
 .meta-data > p {
     margin: 5px 10px;
-    font-size: 0.9rem;
+    font-size: 0.8rem;
     letter-spacing: 0.5px;
     user-select: none;
 }
@@ -32,8 +32,4 @@
     .meta-data {
         flex-direction: column;
     }
-}
-
-.meta-data > p {
-    font-size: 0.75rem;
 }
