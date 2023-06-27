@@ -7,6 +7,7 @@ import RefreshIcon from '@mui/icons-material/Refresh';
 import { useDispatch } from 'react-redux';
 import { toggleRerun } from '../../features/toggleRerunSlice';
 import CheckBoxOutlineBlankSharpIcon from '@mui/icons-material/CheckBoxOutlineBlankSharp';
+import Tooltip from '../Tooltip/Tooltip';
 
 
 const Navigation = () => {
@@ -29,33 +30,45 @@ const Navigation = () => {
 
             <div className = "nav__items">
                 
-                <div 
-                    className='nav__item'
-                    onClick={() => setMenuVisible(prev => !prev)}    
-                >
-                    {
-                        menuVisible ?
-                        <DisabledByDefaultIcon 
-                            style={{...style, color: "#FF194D"}}
-                        />
-                        :
-                        <AppsIcon
-                            style={style}
-                        />
-                    }
+                <div>
+                    <div 
+                        className='nav__item'
+                        onClick={() => setMenuVisible(prev => !prev)}    
+                    >
+                        {
+                            menuVisible ?
+                            <DisabledByDefaultIcon 
+                                style={{...style, color: "#FF194D"}}
+                            />
+                            :
+                            <AppsIcon
+                                style={style}
+                            />
+                        }
+                    </div>
                 </div>
 
-                <div className='nav__item' onClick={handleRerun}>
-                    <RefreshIcon
-                        style={{style}}
-                    />
+                <div>
+                    <Tooltip content="Rerun Sort">
+                        <div className='nav__item' onClick={handleRerun}>
+                            <RefreshIcon
+                                style={{style}}
+                            />
+                        </div>
+                    </Tooltip>
                 </div>
+                
 
-                <div className='nav__item' onClick={() => window.open("https://65kyyf-3000.csb.app/", "_blank")}>
-                    <CheckBoxOutlineBlankSharpIcon
-                        style={{...style, transform: "scale(0.9)"}}
-                    />
+                <div>
+                    <Tooltip content="CodeSandbox">
+                        <div className='nav__item' onClick={() => window.open("https://codesandbox.io/s/interesting-satoshi-ht35gs", "_blank")}>
+                            <CheckBoxOutlineBlankSharpIcon
+                                style={{...style, transform: "scale(0.9)"}}
+                            />
+                        </div>
+                    </Tooltip>
                 </div>
+               
 
             </div>
 
