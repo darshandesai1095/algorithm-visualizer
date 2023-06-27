@@ -44,6 +44,7 @@ const Visualization = (props) => {
         return () => {
           isCancelled = true
         }
+        // eslint-disable-next-line react-hooks/exhaustive-deps
       }, [sortingAlgorithm, toggleRerun])
       
 
