@@ -17,4 +17,4 @@ React JS, Redux-Toolkit
 <img width="700" alt="Algorithm Visualizer - Select Algorithm" src="https://github.com/darshandesai1095/algorithms-visualization/assets/43254178/8fdf9cda-fefa-4821-8fad-1bb70ac9bfef">
 
 ### Contact Information
-Email: darshandesai1095@gmail.com
+Email: darshandesai1995@gmail.com
