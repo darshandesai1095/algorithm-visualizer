@@ -1,4 +1,4 @@
-import { useState, useEffect, useRef } from 'react';
+import { useState, useEffect } from 'react';
 import './Visualization.css';
 import Element from '../Element/Element';
 import { useSelector } from 'react-redux';
@@ -10,7 +10,7 @@ const Visualization = (props) => {
     const sortingAlgorithm = useSelector(state => state.algorithm.value)
     const toggleRerun = useSelector(state => state.toggleRerun.value)
     const delay = useSelector(state => state.delay.value)
-    const [arrayLength, setArrayLength] = useState(100)
+    const arrayLength = 100
     const [activeIndex, setActiveIndex] = useState([])
     const [currentArray, setCurrentArray] = useState([])
 

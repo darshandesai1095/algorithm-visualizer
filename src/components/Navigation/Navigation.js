@@ -14,9 +14,9 @@ const Navigation = () => {
 
     const dispatch = useDispatch()
 
-    const [style, setStyle] = useState({
-        transform: "scale(1.1))",
-    })
+    const style = {
+        transform: "scale(1.1))"
+    }
 
     const [menuVisible, setMenuVisible] = useState(false)
 
