@@ -13,8 +13,8 @@ https://codesandbox.io/s/algorithm-visualizer-xsrxfq
 React JS, Redux-Toolkit
 
 ### Screenshots
-<img width="1468" alt="Algorithm Visualizer - Visualize" src="https://github.com/darshandesai1095/algorithms-visualization/assets/43254178/6047d760-ccc7-4eb2-8ba3-e14b2c6c90f9">
-<img width="1466" alt="Algorithm Visualizer - Select Algorithm" src="https://github.com/darshandesai1095/algorithms-visualization/assets/43254178/8fdf9cda-fefa-4821-8fad-1bb70ac9bfef">
+<img width="700" alt="Algorithm Visualizer - Visualize" src="https://github.com/darshandesai1095/algorithms-visualization/assets/43254178/6047d760-ccc7-4eb2-8ba3-e14b2c6c90f9">
+<img width="700" alt="Algorithm Visualizer - Select Algorithm" src="https://github.com/darshandesai1095/algorithms-visualization/assets/43254178/8fdf9cda-fefa-4821-8fad-1bb70ac9bfef">
 
 ### Contact Information
 Email: darshandesai1095@gmail.com
