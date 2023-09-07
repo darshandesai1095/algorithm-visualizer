@@ -4,7 +4,7 @@
 A site which allows users to visualise a range of sorting algorithms including; quick sort, heap, sort, merge sort, selection sort, bubble sort, etc.
 
 ### Features
-Algorithm selection, select the delay between iterations, view the number of 
+Algorithm selection, update the delay between iterations based on viewing preferences, view the number of iterations, comparisons and swaps as they update in real-time
 
 ### Demo
 https://classy-cheesecake-233ae7.netlify.app/
